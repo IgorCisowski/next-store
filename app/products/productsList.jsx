@@ -1,33 +1,15 @@
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
-const getProducts = async () => {
-  const res = await fetch("https://dummyjson.com/products");
-  return res.json();
-};
-
-export default async function ProductsList() {
-  const data = await getProducts();
+export default function ProductsList() {
   return (
-    <div>
-      <h1>Products</h1>
-      {data.products.map(
-        ({ id, title, price, rating, category, thumbnail }) => {
-          return (
-            <div key={id}>
-              <Link href={`/products/${id}`}>
-                <Image
-                  src={thumbnail}
-                  alt="product"
-                  width={50}
-                  height={50}
-                ></Image>
-                <h3>{title}</h3>
-                <p>{price}</p>
-              </Link>
-            </div>
-          );
-        }
-      )}
+    <div className="my-7">
+      <Link href={`/products/id`}>
+        <div className="mb-10">
+          <div className="w-full h-96 bg-black rounded-md mb-3">IMG</div>
+          <h3 className="mb-3">Title</h3>
+          <p>Price</p>
+        </div>
+      </Link>
     </div>
   );
 }
