@@ -1,26 +1,29 @@
+import React from "react";
 import Image from "next/image";
-
-const getProduct = async (id) => {
+const getProductData = async (id) => {
   const res = await fetch(`https://dummyjson.com/products/${id}`);
   return res.json();
 };
 
-export default async function productsList({ params }) {
-  const data = await getProduct(params.id);
-
+export default async function Product({ params }) {
+  const product = await getProductData(params.id);
   return (
-    <div>
-      <h1>Product</h1>
-      <div>
+    <div className="my-16">
+      <div className="w-full h-96 rounded-md mb-3 overflow-hidden">
         <Image
-          src={data.thumbnail}
-          alt="product"
-          width={50}
-          height={50}
-        ></Image>
-        <h3>{data.title}</h3>
-        <p>{data.price}</p>
+          className="w-full h-full object-cover "
+          src={product.thumbnail}
+          width={100}
+          height={100}
+          alt="product-picture"
+        />
       </div>
+      <h3 className="mb-3">{product.title}</h3>
+      <p className="mb-3">{product.description}</p>
+      <p className="mb-3">${product.price}</p>
+      <button className="py-3 w-full text-center bg-violet-800 text-white rounded-md duration-100 active:scale-95">
+        Add to cart
+      </button>
     </div>
   );
 }
